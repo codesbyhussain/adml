@@ -11,7 +11,7 @@ Accurate tree canopy mapping supports urban planning, biodiversity conservation,
 This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth Observation data formats.
 
 ### Results
-My current submission model, as of **September 24th 2025**, places in the top 10 of 271 competitors on Solafune leaderboard, against the assesment criteria of >75% mean IoU on the validation dataset.
+My current submission model, as of **September 24th 2025**, places in the top 10 of 271 competitors on [Solafune leaderboard](https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&menu=lb&tab=public), against the assesment criteria of >75% mean IoU on the prediction dataset.
 
 ### Lessons Learned
 - Importance of label formatting and format conversion (COCO ↔ YOLO)
@@ -26,7 +26,15 @@ My current submission model, as of **September 24th 2025**, places in the top 10
     - base language for building the pipeline and running scripts
     - Tasks
         - geospatial + ML pipeline
-- PyTorch - deep learning framework used to train segmentation models
+- PyTorch 
+    - deep learning framework used to train segmentation models
+- Google Colab
+    - Alternative notebook for accessing Google Colab's GPUs
+- JSON, COCOJson
+    - Retrieval and submission of labels.
+- YAML
+    - Organised model parameter files
+- GIS Toolkits (e.g. rasterio, geemap)
 
 ## Installation  
 ```bash
@@ -79,8 +87,7 @@ pip install -r requirements.txt
 
 ### Data
 - Data Not Sharable by Solafune Non-Disclosure Agreement.
-<!-- - 
-<https://drive.google.com/drive/folders/1sB7XVJuFYcJCqzbiHcxKC96WAWCKo3Zj?usp=drive_link> -->
+<!-- <https://drive.google.com/drive/folders/1sB7XVJuFYcJCqzbiHcxKC96WAWCKo3Zj?usp=drive_link> -->
 
 ### Run Order
 

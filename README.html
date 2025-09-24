@@ -32,7 +32,7 @@
 <p>Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust skills while yielding practical impacts while building skillsets in geospatial machine learning.</p>
 <p>This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth Observation data formats.</p>
 <h3 id="results">Results </h3>
-<p>My current submission model, as of <strong>September 24th 2025</strong>, places in the top 10 of 271 competitors on Solafune leaderboard, against the assesment criteria of &gt;75% mean IoU on the validation dataset.</p>
+<p>My current submission model, as of <strong>September 24th 2025</strong>, places in the top 10 of 271 competitors on <a href="https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&amp;menu=lb&amp;tab=public">Solafune leaderboard</a>, against the assesment criteria of &gt;75% mean IoU on the prediction dataset.</p>
 <h3 id="lessons-learned">Lessons Learned </h3>
 <ul>
 <li>Importance of label formatting and format conversion (COCO ↔ YOLO)</li>
@@ -56,7 +56,27 @@
 </li>
 </ul>
 </li>
-<li>PyTorch - deep learning framework used to train segmentation models</li>
+<li>PyTorch
+<ul>
+<li>deep learning framework used to train segmentation models</li>
+</ul>
+</li>
+<li>Google Colab
+<ul>
+<li>Alternative notebook for accessing Google Colab's GPUs</li>
+</ul>
+</li>
+<li>JSON, COCOJson
+<ul>
+<li>Retrieval and submission of labels.</li>
+</ul>
+</li>
+<li>YAML
+<ul>
+<li>Organised model parameter files</li>
+</ul>
+</li>
+<li>GIS Toolkits (e.g. rasterio, geemap)</li>
 </ul>
 <h2 id="installation">Installation </h2>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> clone <span class="token operator">&lt;</span>https://github.com/Mitch-P-Analyst/solafune-canopy-capstone.git<span class="token operator">&gt;</span>
