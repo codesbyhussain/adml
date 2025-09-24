@@ -13,7 +13,7 @@ REPO_ROOT = Path.cwd()
 CURRENT_DATETIME = datetime.now().strftime('%Y-%m-%d %H:%M')
 
 # Prediction Annotations
-LABELS = REPO_ROOT / 'predict_Yolo11s_canopy_832_20250831' # Modify Prediction Txt annotations where necessary
+LABELS = REPO_ROOT / 'predict_Yolo11s_canopy_832_9_20250831' # Modify Prediction Txt annotations where necessary
 
 # 
 IMGS = REPO_ROOT / 'data/processed/images/predict'
