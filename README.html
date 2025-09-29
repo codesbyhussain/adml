@@ -26,18 +26,20 @@
       
 <h1 id="solafune-tree-canopy-detection-capstone">Solafune Tree Canopy Detection Capstone </h1>
 <h2 id="project-overview">Project Overview </h2>
-<p>The project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produce a competitive-ready submission in the Solafune Tree Canopy Detection challenge.</p>
+<p>The project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission in the Solafune Tree Canopy Detection challenge.</p>
 <p>This pipeline runs on both local environments and Google Colab with minimal path changes, enabling access to GPU acceleration for faster training.</p>
 <h3 id="motivation">Motivation </h3>
-<p>Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust skills while yielding practical impacts while building skillsets in geospatial machine learning.</p>
+<p>Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge helped develop strong skils in GIS data while yielding practical impacts while building skillsets in geospatial machine learning.</p>
 <p>This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth Observation data formats.</p>
 <h3 id="results">Results </h3>
 <p>My current submission model, as of <strong>September 24th 2025</strong>, places in the top 10 of 271 competitors on <a href="https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&amp;menu=lb&amp;tab=public">Solafune leaderboard</a>, against the assesment criteria of &gt;75% mean IoU on the prediction dataset.</p>
 <h3 id="lessons-learned">Lessons Learned </h3>
 <ul>
-<li>Importance of label formatting and format conversion (COCO ↔ YOLO)</li>
-<li>Value of consistent directory structure for large-scale ML projects</li>
+<li>JSON label formatting and format conversion (COCO ↔ YOLO)</li>
+<li>Consistent directory structure for large-scale ML projects across local and digitial directories.</li>
 <li>Benefits of augmentation techniques like HSV rotation and color grading</li>
+<li>Visual data formatting.</li>
+<li>Convolutions and convolutional neural networks.</li>
 </ul>
 <h3 id="tools">Tools </h3>
 <ul>
@@ -76,7 +78,7 @@
 <li>Organised model parameter files</li>
 </ul>
 </li>
-<li>GIS Toolkits (e.g. rasterio, geemap)</li>
+<li>GIS Toolkits</li>
 </ul>
 <h2 id="installation">Installation </h2>
 <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> clone <span class="token operator">&lt;</span>https://github.com/Mitch-P-Analyst/solafune-canopy-capstone.git<span class="token operator">&gt;</span>

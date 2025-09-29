@@ -1,12 +1,12 @@
 # Solafune Tree Canopy Detection Capstone
 
 ## Project Overview  
-The project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produce a competitive-ready submission in the Solafune Tree Canopy Detection challenge.
+The project involved building a geospatial ML pipeline using Sentinel-2 imagery to detect tree canopies via image segmentation. Hosted by Solafune, I managed data imports of image segmentations, trained a segmentation model, and produced a competition-ready submission in the Solafune Tree Canopy Detection challenge.
 
 This pipeline runs on both local environments and Google Colab with minimal path changes, enabling access to GPU acceleration for faster training.
 
 ### Motivation
-Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge develops robust skills while yielding practical impacts while building skillsets in geospatial machine learning.
+Accurate tree canopy mapping supports urban planning, biodiversity conservation, and climate modeling. Participating in this challenge helped develop strong skils in GIS data while yielding practical impacts while building skillsets in geospatial machine learning.
 
 This project was also my first application of YOLO-based image segmentation and geospatial data processing, providing valuable experience working with Earth Observation data formats.
 
@@ -14,9 +14,11 @@ This project was also my first application of YOLO-based image segmentation and 
 My current submission model, as of **September 24th 2025**, places in the top 10 of 271 competitors on [Solafune leaderboard](https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?modal=%22%22&menu=lb&tab=public), against the assesment criteria of >75% mean IoU on the prediction dataset.
 
 ### Lessons Learned
-- Importance of label formatting and format conversion (COCO ↔ YOLO)
-- Value of consistent directory structure for large-scale ML projects
+- JSON label formatting and format conversion (COCO ↔ YOLO)
+- Consistent directory structure for large-scale ML projects across local and digitial directories.
 - Benefits of augmentation techniques like HSV rotation and color grading
+- Visual data formatting. 
+- Convolutions and convolutional neural networks.
 
 
 ### Tools
@@ -34,7 +36,7 @@ My current submission model, as of **September 24th 2025**, places in the top 10
     - Retrieval and submission of labels.
 - YAML
     - Organised model parameter files
-- GIS Toolkits (e.g. rasterio, geemap)
+- GIS Toolkits
 
 ## Installation  
 ```bash
