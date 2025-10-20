@@ -1,0 +1,7 @@
+
+train: C:\Users\hmanasi1\Documents\ADML\Project\data\processed_yolo/images/train/
+val: C:\Users\hmanasi1\Documents\ADML\Project\data\processed_yolo/images/val/
+
+# Classes
+nc: 2
+names: ['group_of_trees', 'individual_tree']
