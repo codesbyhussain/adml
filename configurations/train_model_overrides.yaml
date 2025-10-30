@@ -21,9 +21,9 @@ seed: 0                      # State for comparisons across hyperparameter chang
 copy_paste: 0.10              # Default = 0.0 |helps segmentation; turn down if artifacts appear | Segmentation only. Copies and pastes objects across images to increase object instances.
 close_mosaic: 10              # disable mosaic for last 10 epochs to refine details & polish fine edges at the final scale.
 mosaic: 0.9                   # Default = 1.0 | Combines four training images into one, simulating different scene compositions and object interactions
-scale: 0.6                    # Default - 0.5 | Scales the image by a gain factor, simulating objects at different distances from the camera.
-hsv_s: 0.8                    # Default = 0.7 | Increase saturdation of images
-hsv_h: 0.025                  # Default = 0.015 | Increase range of Color Hue spectrum durign training
+scale: 0.7                    # Default - 0.5 | Scales the image by a gain factor, simulating objects at different distances from the camera.
+hsv_s: 0.9                    # Default = 0.7 | Increase saturdation of images
+hsv_h: 0.028                  # Default = 0.015 | Increase range of Color Hue spectrum durign training
 degrees: 180                  # Rotate images up to 180degrees during training
 
 # dataloader
@@ -40,7 +40,7 @@ lr0: 0.003                    # Default = 0.01 | decreased learning rate to mini
 
 
 # organisation
-name: 'train_Yolo11s_canopy_832_'
+name: 'train_Yolo11s_canopy_832_adamW_'
 project: runs/segment       # Output destination
 plots: False                # don't draw plots every val
 val: True

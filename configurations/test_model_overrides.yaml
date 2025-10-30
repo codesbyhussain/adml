@@ -9,12 +9,12 @@ device: 'None'             # 'mps' = Apple Metal GPU | 'None' select best fit gi
 workers: 1                # keep small on macOS/MPS
 
 # schedule
-imgsz: 896                # image size (default 640)
+imgsz: 832                # image size (default 640)
 batch: 1                  # bulletproof when plotting; optional if rect=False
 
 # NMS (used at val/test)
-iou: 0.70                 # IoU
-conf: 0.015               # Confidence Level Threshold for evaluation to produce PR Curve
+iou: 0.65                 # IoU
+conf: 0.013               # Confidence Level Threshold for evaluation to produce PR Curve
 max_det: 300              # cap kept detections per image
 
 # dataloader
@@ -28,5 +28,5 @@ agnostic_nms: False       # Dont merge across classes
 
 visualize: False          # Visualizes the ground truths, true positives, false positives and false negatives for each image
 verbose: True
-name: 'test_Yolo11s_canopy_832_adamw'
+name: 'test_Yolo11s_canopy_832_adamW_'
 project: runs/segment     # Output destination
