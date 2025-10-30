@@ -18,7 +18,7 @@ stream:  True                 # yield one-by-one (lower GPU memory usage)
                                 # stream = True | Output is a 'generator' that yeilds **1** results at a time
 
 # schedule
-imgsz: 896                    # image size (default 640)
+imgsz: 1024                    # image size (default 640)
 batch: 1
 
 # NMS (used at val/test)
