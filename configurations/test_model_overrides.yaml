@@ -14,7 +14,7 @@ batch: 1                  # bulletproof when plotting; optional if rect=False
 
 # NMS (used at val/test)
 iou: 0.65                 # IoU
-conf: 0.013               # Confidence Level Threshold for evaluation to produce PR Curve
+conf: 0.13               # Confidence Level Threshold for evaluation to produce PR Curve
 max_det: 300              # cap kept detections per image
 
 # dataloader

@@ -20,7 +20,7 @@ for key in ("source", "project"):
         overrides[key] = str((REPO_ROOT / overrides[key]).resolve())
 
 # Load Trained Model Weights
-weights = REPO_ROOT / 'runs/segment/training_fastNMS12/weights/best.pt' # Weights from Train Model / Modify where necessary
+weights = REPO_ROOT / 'runs/segment/train_Yolo11s_canopy_832__20251030-2009/weights/best.pt' # Weights from Train Model / Modify where necessary
 
 # Load Trained Model's Weights
 model = YOLO(str(weights))  

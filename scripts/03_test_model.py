@@ -9,10 +9,12 @@ import torch
 import pandas as pd
 from shutil import copy2
 
-# Directories and Paths
+#-- Directories and Paths --#
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 DATA_CONFIG_PATH = REPO_ROOT / 'configurations' / 'model_data-seg.yaml'
+
+#-- Model --#
 
 # Load model parameters / overrides
 with open(REPO_ROOT / 'configurations' / 'test_model_overrides.yaml', 'r') as f:
@@ -22,7 +24,7 @@ with open(REPO_ROOT / 'configurations' / 'test_model_overrides.yaml', 'r') as f:
 overrides['data'] = str(DATA_CONFIG_PATH)
 
 # Assign Trained Model Weights
-weights = REPO_ROOT / 'runs/segment/Yolo11s_canopy_832_adamw_train_20250828-0533/weights/best.pt' # Weights from Train Model / Modify where necessary
+weights = REPO_ROOT / 'runs/segment/train_Yolo11s_canopy_832__20251030-2009/weights/best.pt' # Weights from Train Model / Modify where necessary
 
 # Load Trained Model's Weights
 model = YOLO(str(weights))  
@@ -32,9 +34,14 @@ with torch.inference_mode():
     metrics = model.val(**overrides)
 
 
+#-- Results --#
 
+#--- Results Directory ---#
+# where YOLO saved this run
+out_dir = Path(metrics.save_dir)
+out_dir.mkdir(parents=True, exist_ok=True)
 
-#-- Precision & Recall Calculations --#
+#--- Precision & Recall Calculations ---#
 
 # names -> {id: name}; confusion matrix includes a last row/col for "background"
 names = [metrics.names[i] for i in range(len(metrics.names))]
@@ -59,21 +66,20 @@ df = pd.DataFrame({
     "precision": precision, "recall": recall, "f1": f1
 })
 print(df)
+# Output P&R Results
+df.to_csv(out_dir / "P&R_results.csv", header=True,index=True)   
+print(f"Saved df results metrics to {out_dir/'df_results.csv'}")
 
 
 #-- Export Validation Results --#
 # dataframe
 validation_df = metrics.to_df()
 
-# where YOLO saved this run
-out_dir = Path(metrics.save_dir)
-out_dir.mkdir(parents=True, exist_ok=True)
+# validation_df.to_csv(csv_path, header=True, index=True)
+summary_df = pd.DataFrame([metrics.results_dict])  # <-- dict -> one-row DataFrame
+summary_df.to_csv(out_dir / "summary_metrics_results.csv", index=False)
+print(f"Saved metrics to {out_dir/'results.csv'}")
 
-# write a CSV file into that folder
-csv_path = out_dir / "results.csv"
-validation_df.to_csv(csv_path, header=True, index=True)
-
-print(f"Saved metrics to {csv_path}")
 
 
 
