@@ -5,7 +5,7 @@ data: 'configurations/model_data-seg.yaml' # Data Source
 split: 'val'              # data is specific to 'val' folder
 
 # Training Model Weights (relative to repo root)
-weights: 'runs/segment/train_Yolo11s_canopy_832__20251030-2009/weights/best.pt' 
+weights: 'runs/segment/train_Yolo11s_canopy_832_adamW__20251101-0151/weights/best.pt' 
     # Weights from Train Model / Modify where necessary
 
 
@@ -14,12 +14,12 @@ device: 'None'            # 'mps' = Apple Metal GPU | 'None' select best fit giv
 workers: 1                # keep small on macOS/MPS
 
 # Schedule
-imgsz: 832                # image size (default 640)
+imgsz: 1024                # image size (default 640)
 batch: 1                  # bulletproof when plotting; optional if rect=False
 
 # NMS (used at val/test)
-iou: 0.65                 # IoU
-conf: 0.13                # Confidence Level Threshold for evaluation to produce PR Curve
+iou: 0.60                 # IoU
+conf: 0.30                # Confidence Level Threshold for evaluation to produce PR Curve
 max_det: 300              # cap kept detections per image
 
 # Dataloader

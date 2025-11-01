@@ -95,7 +95,7 @@ pip install -r requirements.txt
 
 1. 01_data_preparation.ipynb
 ↓
-2. 02_train_model.py
+2. 02_train_model.py |  Google Colab [solafune_tree_canopy.ipynb](https://colab.research.google.com/drive/1KrtNSr8aHL5j8dGBrMzNdlHEesKB712Z?usp=drive_link)
 ↓
 3. 03_test_model.py
 ↓
@@ -151,10 +151,7 @@ pip install -r requirements.txt
                 - Where to select predicted model outputs to define prediction labels.txt for submission
 
 
-## **Optional** Google Colab 
-Relative pathways and constructed Google Colab .ipynb file to utilise Google Colab GPUs.
 
-To take advantage of Googel Colab's free or paid GPU, follow the below Google Drive Directory Structure and Google Colab Juptyer Notebook file.
 
 ### Required Google Drive Directory Structure
 ```

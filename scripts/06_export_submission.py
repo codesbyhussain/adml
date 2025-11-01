@@ -13,9 +13,7 @@ REPO_ROOT = Path.cwd()
 CURRENT_DATETIME = datetime.now().strftime('%Y-%m-%d %H:%M')
 
 # Prediction Annotations
-LABELS = REPO_ROOT / 'runs/segment/predict_Yolo11s_canopy_832_adamW_/labels' # Modify Prediction Txt annotations where necessary
-
-# 
+labels = REPO_ROOT / "runs/segment/pred_train_Yolo11s_canopy_832_adamW__20251101-0151_2025-10-31 20:36" / "labels" # Modify Prediction Txt annotations where necessary
 IMGS = REPO_ROOT / 'data/processed/images/predict'
 OUT_JSON = REPO_ROOT / 'exports'/ str(CURRENT_DATETIME) / 'submission.json'
 
@@ -57,6 +55,7 @@ def get_annotations(LABELS):
     annotations = []
 
     for txt_file in sorted(Path(LABELS).iterdir()):
+        
         if txt_file.is_file() and txt_file.suffix.lower() == ".txt":
             image_name = txt_file.name
 
@@ -181,7 +180,7 @@ images_sorted = sorted(images, key=lambda x: x['file_name']) # Sort Images
 print(f'images_sorted ')
     
 print('Get Annotations')
-annotations_list = get_annotations(LABELS) # Retrieve Annotations & Denormalise Segmentations to Pixels
+annotations_list = get_annotations(labels) # Retrieve Annotations & Denormalise Segmentations to Pixels
 
 for annot in annotations_list: # Clean Annotations
     # .txt suffix -> .tif
