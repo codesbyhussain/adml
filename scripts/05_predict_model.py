@@ -31,7 +31,7 @@ weights_path = resolve(overrides.pop("weights"))
 # Model Naming
 # optional: use the training run name from the weights path
 train_run = weights_path.parents[1].name  # e.g., train_Yolov8s_canopy_832_...
-run_name = f"pred_{train_run}_{current_dt}"
+run_name = f"predict_{train_run}_{current_dt}"
 
 # inject name (and project if you want a different subfolder)
 overrides.setdefault("project", str(REPO_ROOT / "runs"))

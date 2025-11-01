@@ -58,11 +58,11 @@ pip install -r requirements.txt
 │   │ │  ├── predict/                     # Unlabeled (no Ground Truth) data for prediction 
 │   │ │  ├── train/                       # Ground Truth Data Split for model training  
 │   │ │  ├── val/                         # Ground Truth Data Split for model valdiation  
-│   │ │  └── test/                        # Ground Truth Data Split for model testing  
+│   │ │  └── test/                        # Required by YOLO structure
 │   │ ├── labels/
 │   │ │  ├── train/                       # Ground Truth Labels Split for model training  
 │   │ │  ├── val/                         # Ground Truth Labels Split for model valdiation
-│   │ │  └── test/                        # Ground Truth Labels Split for model testing
+│   │ │  └── test/                        # Required by YOLO structure
 │   │ └── JSONs/                          # Converted JSON file
 │   ├── raw/
 │   │ ├── zips/                           # Raw Data ZIP files | **Restricted by NDA**
@@ -75,13 +75,14 @@ pip install -r requirements.txt
 │
 ├── scripts/                                
 │   ├── 02_train_model.py                   # Train YOLO Model
-│   ├── 03_test_model.py                    # Test/Valdiate YOLO Model on GT Data
+│   ├── 03_val_model.py                     # Valdiate YOLO Model on GT Data
 │   ├── 05_predict_model.py                 # Create predictions with trained YOLO Model on no GT Data  
 │   └── 06_export_submission.py             # Convert prediction outputs into Solafune JSON format
 │
 ├── runs/segments/                          # All model training/validation/prediction results
 ├── exports/                                # JSON Submission files
 ├── README.md                               # This file
+├── README.html                             # README in HTML format for digital portfolio
 └── requirements.txt                        # Package requirements
 ```
 
@@ -89,104 +90,60 @@ pip install -r requirements.txt
 
 ### Data
 - Data Not Sharable by Solafune Non-Disclosure Agreement.
+    - To access data, visit Solafune compeition webpage [Tree Canopy Detection](https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?menu=data&tab=&modal=%22%22) 
 <!-- <https://drive.google.com/drive/folders/1sB7XVJuFYcJCqzbiHcxKC96WAWCKo3Zj?usp=drive_link> -->
 
-### Run Order
+### Files & Run Order
 
-1. 01_data_preparation.ipynb
-↓
-2. 02_train_model.py |  Google Colab [solafune_tree_canopy.ipynb](https://colab.research.google.com/drive/1KrtNSr8aHL5j8dGBrMzNdlHEesKB712Z?usp=drive_link)
-↓
-3. 03_test_model.py
-↓
-4. (Optional) 04_test_model_evaluations.ipynb
-↓
-5. 05_predict_model.py
-↓
-6. 06_export_submission.py
-
-### Files
-- Run Notebooks & Scripts in sequence: 
-
+1. Data Preparation
     - 01_data_preparation.ipynb
         - JSON conversion 
-            - Solafune format -> COCO format
-            - COCO format -> YOLO format
+        - Solafune format -> COCO format
+        - COCO format -> YOLO format
         - Unpacking Raw Data
             - Extract ZIP files
                 - Training
                 - Prediction
         - Data Split Images & Annotations
             - Training
-            - Testing
             - Validation 
 
-    - 02_train_model.py
-        - Modify train model parameters YAML file for desired training and naming
-            - Train Model Parameters
-        - Select YOLO Model Version
-            - [scripts/02_train_model.py](scripts/02_train_model.py) — Line 21  
-                 - Where to select pretrained model for training
-        
-    - 03_test_model.py
-        - Modify test model parameters YAML file for fine tuning model
-            - Test Model Parameters
-        - Select Models Weights for Validation
-            - [scripts/03_test_model.py](scripts/03_test_model.py) — Line 23  
-                 - Where to select trained model weights for evaluation
+2. Model Training
+    - Two options for training model on **Local Device** or **Google Colab GPUs**
+        - Local Device
+            -  02_train_model.py
+                - Modify train model parameters YAML file for desired training and naming
+                    - Train Model Parameters
+                - Select YOLO Model Version
+                    - [scripts/02_train_model.py](scripts/02_train_model.py) — Line 21  
+                        - Where to select pretrained model for training   
+        - Google Colab    
+            - [![ Open In Colab ](https://colab.research.google.com/assets/colab-badge.svg)]
+                - [solafune_tree_canopy.ipynb](https://colab.research.google.com/drive/1KrtNSr8aHL5j8dGBrMzNdlHEesKB712Z?usp=drive_link)
 
-    - 04_test_model_evaluations.ipynb | **Optional**
-        - Optional Unfinished Notebook file. Containing indepth measures to analyse test split data validation.
+3. Model Validation
+    - 03_val_model.py
+        - Select Model Weights from trained YOLO model
+            - Trained Model Weights selection
+        - Modify validation model parameters YAML file for fine tuning model
+            - Validation Model Parameters
 
+4. Metric Testings
+    - **(Optional)** 04_test_model_evaluations.ipynb
+        - Optional Unfinished Notebook file. Containing indepth measures to analyse split data validation.
+
+5. Predictions
     - 05_predict_model.py
-        - Modify predict model parameters YAML file for final model predictions
-            - Predict Model Parameter
-        - Select Models Weights for Prediction
-            - [scripts/05_predict_model.py](scripts/05_predict_model.py) — Line 23  
-                 - Where to select trained/validated model weights for prediction
+        - Select Model Weights from trained YOLO model
+            - Trained Model Weights selection
+        - Modify prediction model parameters YAML file for final model deployment
+            - Prediction Model Parameters
 
+6. Export
     - 06_export_submission.py
         - Select Predict Models Annotations for Submission Jile
             - [scripts/06_export_submission.py](scripts/06_export_submission.py) - Line 16
                 - Where to select predicted model outputs to define prediction labels.txt for submission
-
-
-
-
-### Required Google Drive Directory Structure
-```
-├── drive/                              # Drive Base
-│   ├── MyDrive/                        # Google Drive
-│   │   ├── Datasets/                   # Host of all Datasets
-│   │   │  ├── solafune-tree-canopy/                   
-│   │   │   │   ├── data/               # Data Folder Structure 
-│   │   │   │   │   ├── processed/
-│   │   │   │   │   │   ├── labels/
-│   │   │   │   │   │   │   ├── train/
-│   │   │   │   │   │   │   ├── test/
-│   │   │   │   │   │   │   └── val/
-│   │   │   │   │   │   └── images/
-│   │   │   │   │   │       ├── train/
-│   │   │   │   │   │       ├── test/
-│   │   │   │   │   │       └── val/
-│   │   │   │   │   │
-│   │   │   │   │   ├── temp/
-│   │   │   │   │   └──  raw/
-│   │   │   │   │      ├── zips/
-│   │   │   │   │      └── JSONs/
-│   │   │   │   │
-│   │   │   │   ├── runs/
-│   │   │   │   │   ├── segments/      # All model training/validation/prediction results
-│   │   │   │   │   └── notebooks/
-│   │   │   │   │
-│   │   │   │   └──   outputs/
-│   │   │   │       └── exports/
-```
-
-### Files
-
-- Run Notebook
-    - [solafune_tree_canopy.ipynb](https://colab.research.google.com/drive/1KrtNSr8aHL5j8dGBrMzNdlHEesKB712Z?usp=drive_link)
 
 
 ## License

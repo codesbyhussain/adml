@@ -28,7 +28,7 @@ imgsz: 1024                    # image size (default 640)
 batch: 1
 
 # NMS (used at val/test)
-conf: 0.20                     # filter low-confidence preds early
+conf: 0.10                     # filter low-confidence preds early
 iou: 0.60                     # merge more aggressively in NMS
 max_det: 300                  # cap kept detections per image
 
