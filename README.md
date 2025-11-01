@@ -71,6 +71,7 @@ pip install -r requirements.txt
 │
 ├── notebooks/                          
 │   ├── 01_data_preparation.ipynb           # Convert JSONs, Unzip, Split Data
+│   ├── 02_train_model_colab.ipynb          # Google Colab notebook for model traiing
 │   └── 04_test_model_evaluations.ipynb     # **Optional** Indepth model evaluations
 │
 ├── scripts/                                
