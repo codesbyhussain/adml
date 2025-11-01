@@ -4,6 +4,11 @@
 
 source: 'data/processed/images/predict' # Data Source from REPO_ROOT
 
+# Training Model Weights (relative to repo root)
+weights: 'runs/segment/train_Yolo11s_canopy_832__20251030-2009/weights/best.pt' 
+    # Weights from Train Model / Modify where necessary
+
+
 # hardware
 device: 'None'              # 'mps' = Apple Metal GPU | None = best fit available
 workers: 0                 # keep small on macOS/MPS / Not really needed durign prect

@@ -17,17 +17,21 @@ DATA_CONFIG_PATH = REPO_ROOT / 'configurations' / 'model_data-seg.yaml'
 #-- Model --#
 
 # Load model parameters / overrides
-with open(REPO_ROOT / 'configurations' / 'test_model_overrides.yaml', 'r') as f:
+with open(REPO_ROOT / 'configurations' / 'val_model_overrides.yaml', 'r') as f:
     overrides = yaml.safe_load(f)
 
 # Override path in your dictionary
 overrides['data'] = str(DATA_CONFIG_PATH)
 
 # Assign Trained Model Weights
-weights = REPO_ROOT / 'runs/segment/train_Yolo11s_canopy_832__20251030-2009/weights/best.pt' # Weights from Train Model / Modify where necessary
+def resolve(p: str | Path) -> Path:
+    p = Path(p)
+    return p if p.is_absolute() else (REPO_ROOT / p)
+
+weights_path = resolve(overrides.pop("weights"))
 
 # Load Trained Model's Weights
-model = YOLO(str(weights))  
+model = YOLO(str(weights_path))  
 
 # Predictions from the model
 with torch.inference_mode():
@@ -99,10 +103,10 @@ if hasattr(seg_metrics, "maps") and seg_metrics.maps is not None:
 
 
 # Copy test_parameters into output folder
-test_model_overrides = Path(REPO_ROOT / 'configurations/test_model_overrides.yaml')
+test_model_overrides = Path(REPO_ROOT / 'configurations/val_model_overrides.yaml')
 copy2(test_model_overrides, metrics.save_dir / test_model_overrides.name )
 try:
-    print(f'"test_model_parameters" Copied to : {metrics.save_dir}')
+    print(f'"val_model_parameters" Copied to : {metrics.save_dir}')
 except Exception:
     print('Error - Parameters Not Copied To Output')
 

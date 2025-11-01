@@ -2,22 +2,27 @@
 
 # YOLO Model Parameters / Overrides
 data: 'configurations/model_data-seg.yaml' # Data Source
-split: 'test'             # data is specific to 'test' folder
+split: 'val'              # data is specific to 'val' folder
 
-# hardware
-device: 'None'             # 'mps' = Apple Metal GPU | 'None' select best fit given availability
+# Training Model Weights (relative to repo root)
+weights: 'runs/segment/train_Yolo11s_canopy_832__20251030-2009/weights/best.pt' 
+    # Weights from Train Model / Modify where necessary
+
+
+# Hardware
+device: 'None'            # 'mps' = Apple Metal GPU | 'None' select best fit given availability
 workers: 1                # keep small on macOS/MPS
 
-# schedule
+# Schedule
 imgsz: 832                # image size (default 640)
 batch: 1                  # bulletproof when plotting; optional if rect=False
 
 # NMS (used at val/test)
 iou: 0.65                 # IoU
-conf: 0.13               # Confidence Level Threshold for evaluation to produce PR Curve
+conf: 0.13                # Confidence Level Threshold for evaluation to produce PR Curve
 max_det: 300              # cap kept detections per image
 
-# dataloader
+# Dataloader
 rect: True                 # train with mosaic/crop; keep True only for val/test
                             # force letterbox to a single fixed size
 
@@ -28,5 +33,5 @@ agnostic_nms: False       # Dont merge across classes
 
 visualize: False          # Visualizes the ground truths, true positives, false positives and false negatives for each image
 verbose: True
-name: 'test_Yolo11s_canopy_832_adamW_'
+name: 'val_Yolo11s_canopy_832_adamW_'
 project: runs/segment     # Output destination

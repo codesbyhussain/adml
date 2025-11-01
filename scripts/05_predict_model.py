@@ -20,10 +20,14 @@ for key in ("source", "project"):
         overrides[key] = str((REPO_ROOT / overrides[key]).resolve())
 
 # Load Trained Model Weights
-weights = REPO_ROOT / 'runs/segment/train_Yolo11s_canopy_832__20251030-2009/weights/best.pt' # Weights from Train Model / Modify where necessary
+def resolve(p: str | Path) -> Path:
+    p = Path(p)
+    return p if p.is_absolute() else (REPO_ROOT / p)
+
+weights_path = resolve(overrides.pop("weights"))
 
 # Load Trained Model's Weights
-model = YOLO(str(weights))  
+model = YOLO(str(weights_path))  
 
 # Predictions from the model
 with torch.inference_mode():
