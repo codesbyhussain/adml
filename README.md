@@ -95,58 +95,88 @@ pip install -r requirements.txt
 
 ### Files & Run Order
 
-1. Data Preparation
-    - 01_data_preparation.ipynb
-        - JSON conversion 
-        - Solafune format -> COCO format
-        - COCO format -> YOLO format
-        - Unpacking Raw Data
-            - Extract ZIP files
-                - Training
-                - Prediction
-        - Data Split Images & Annotations
-            - Training
-            - Validation 
 
-2. Model Training
-    - Two options for training model on **Local Device** or **Google Colab GPUs**
-        - Local Device
-            -  02_train_model.py
-                - Modify train model parameters YAML file for desired training and naming
-                    - Train Model Parameters
-                - Select YOLO Model Version
-                    - [scripts/02_train_model.py](scripts/02_train_model.py) — Line 21  
-                        - Where to select pretrained model for training   
-        - Google Colab    
-            - [![ Open In Colab ](https://colab.research.google.com/assets/colab-badge.svg)]
-                - [solafune_tree_canopy.ipynb](https://colab.research.google.com/drive/1KrtNSr8aHL5j8dGBrMzNdlHEesKB712Z?usp=drive_link)
+#### Data Preparation
+- Notebook:
+   - ['notebooks/01_data_preparation.ipynb'](notebooks/01_data_preparation.ipynb)
+       - JSON conversion
+       - Solafune format -> COCO format
+       - COCO format -> YOLO format
+       - Unpacking Raw Data
+           - Extract ZIP files
+               - Training
+               - Prediction
+       - Data Split Images & Annotations
+           - Training
+           - Validation
 
-3. Model Validation
-    - 03_val_model.py
-        - Select Model Weights from trained YOLO model
-            - Trained Model Weights selection
-        - Modify validation model parameters YAML file for fine tuning model
-            - Validation Model Parameters
 
-4. Metric Testings
-    - **(Optional)** 04_test_model_evaluations.ipynb
-        - Optional Unfinished Notebook file. Containing indepth measures to analyse split data validation.
+#### Model Training
+- You can train on a **local Device** or on **Google Colab (GPU)**.
+   - **Local Device**
+       - Script:
+           - [`scripts/02_train_model.py`](scripts/02_train_model.py) 
+       - Configure hyperparameters
+           - [`configurations/train_model_overrides.yaml`](configurations/train_model_overrides.yaml).
+       - Choose the pretrained YOLO weights near the top of the script (line ~21):
+           ```python
+           model = YOLO('yolo11s-seg.pt')  # options: yolo11n-seg.pt, yolo11s-seg.pt, yolo11x-seg.pt, yolov8s-seg.pt
+           ```
+   - **Google Colab**
+       - Notebook:
+           - notebooks/02_train_model_colab.ipynb'   
+               - [![ Open in Colab ▶ ](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Mitch-P-Analyst/solafune_tree_canopy/blob/main/notebooks/02_train_model_colab.ipynb)
+           - Use Colab’s GPU and follow the **in-notebook** instructions to mount Drive, set paths, train model and export model weights.
 
-5. Predictions
-    - 05_predict_model.py
-        - Select Model Weights from trained YOLO model
-            - Trained Model Weights selection
-        - Modify prediction model parameters YAML file for final model deployment
-            - Prediction Model Parameters
 
-6. Export
-    - 06_export_submission.py
-        - Select Predict Models Annotations for Submission Jile
-            - [scripts/06_export_submission.py](scripts/06_export_submission.py) - Line 16
-                - Where to select predicted model outputs to define prediction labels.txt for submission
+#### Model Validation
+- Script:
+   - ['scripts/03_val_model.py'](scripts/03_val_mode.py)
+- Configure hyperparameters & trained model weights
+   - ['configurations/val_model_overrides.yaml'](configurations/train_model_overrides.yaml)
+       - Select Model Weights from trained YOLO model
+           ```python
+           weights: 'runs/segment/train_Yolo11s_canopy_832_adamW__20251101-0151/weights/best.pt'  # example
+           ```
+       - Modify validation model parameters YAML file for fine tuning model
+
+
+
+
+#### Metric Testings (Optional)
+- Notebook:
+   - ['notebooks/04_test_model_evaluations'](notebooks/04_test_model_evaluations.ipynb)
+       - Optional Unfinished Notebook file. Containing indepth measures to analyse split data validation.
+
+
+#### Predictions
+- Script:
+   - ['scripts/05_predict_model.py'](scripts/05_predict_model.py)
+- Configure hyperparameters & trained model weights
+   - ['configurations/predict_model_overrides.yaml'](configurations/predict_model_overrides.yaml)
+       - Select Model Weights from trained YOLO model
+           ```python
+           weights: 'runs/segment/train_Yolo11s_canopy_832_adamW__20251101-0151/weights/best.pt'  # example
+           ```
+       - Modify prediction model parameters YAML file for final model deployment
+
+
+
+
+#### Export
+- Script:
+   - ['scripts/06_export_submission.py'](scripts/06_export_submission.py)
+       - Select Prediction Annotations on **Line 16** from `/runs/segement/` folder for Submission Jile
+           ``` python
+           # Prediction Annotations
+           labels = REPO_ROOT / "runs/segment/pred_train_Yolo11s_canopy_832_adamW__20251101-0151_2025-11-01 10:33" / "labels" # example
+
+
+           ```
+
+
 
 
 ## License
 MIT License
-
 
