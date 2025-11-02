@@ -97,11 +97,11 @@ pip <span class="token function">install</span> <span class="token parameter var
 │   │ │  ├── predict/                     # Unlabeled (no Ground Truth) data for prediction 
 │   │ │  ├── train/                       # Ground Truth Data Split for model training  
 │   │ │  ├── val/                         # Ground Truth Data Split for model valdiation  
-│   │ │  └── test/                        # Ground Truth Data Split for model testing  
+│   │ │  └── test/                        # Required by YOLO structure
 │   │ ├── labels/
 │   │ │  ├── train/                       # Ground Truth Labels Split for model training  
 │   │ │  ├── val/                         # Ground Truth Labels Split for model valdiation
-│   │ │  └── test/                        # Ground Truth Labels Split for model testing
+│   │ │  └── test/                        # Required by YOLO structure
 │   │ └── JSONs/                          # Converted JSON file
 │   ├── raw/
 │   │ ├── zips/                           # Raw Data ZIP files | **Restricted by NDA**
@@ -110,51 +110,39 @@ pip <span class="token function">install</span> <span class="token parameter var
 │
 ├── notebooks/                          
 │   ├── 01_data_preparation.ipynb           # Convert JSONs, Unzip, Split Data
+│   ├── 02_train_model_colab.ipynb          # Google Colab notebook for model traiing
 │   └── 04_test_model_evaluations.ipynb     # **Optional** Indepth model evaluations
 │
 ├── scripts/                                
 │   ├── 02_train_model.py                   # Train YOLO Model
-│   ├── 03_test_model.py                    # Test/Valdiate YOLO Model on GT Data
+│   ├── 03_val_model.py                     # Valdiate YOLO Model on GT Data
 │   ├── 05_predict_model.py                 # Create predictions with trained YOLO Model on no GT Data  
 │   └── 06_export_submission.py             # Convert prediction outputs into Solafune JSON format
 │
 ├── runs/segments/                          # All model training/validation/prediction results
 ├── exports/                                # JSON Submission files
 ├── README.md                               # This file
+├── README.html                             # README in HTML format for digital portfolio
 └── requirements.txt                        # Package requirements
 </code></pre><h2 id="process">Process </h2>
 <h3 id="data">Data </h3>
 <ul>
-<li>Data Not Sharable by Solafune Non-Disclosure Agreement.</li>
-</ul>
-<h3 id="run-order">Run Order </h3>
-<ol>
-<li>01_data_preparation.ipynb<br>
-↓</li>
-<li>02_train_model.py<br>
-↓</li>
-<li>03_test_model.py<br>
-↓</li>
-<li>(Optional) 04_test_model_evaluations.ipynb<br>
-↓</li>
-<li>05_predict_model.py<br>
-↓</li>
-<li>06_export_submission.py</li>
-</ol>
-<h3 id="files">Files </h3>
+<li>Data Not Sharable by Solafune Non-Disclosure Agreement.
 <ul>
-<li>
-<p>Run Notebooks &amp; Scripts in sequence:</p>
-<ul>
-<li>
-<p>01_data_preparation.ipynb</p>
-<ul>
-<li>JSON conversion
-<ul>
-<li>Solafune format -&gt; COCO format</li>
-<li>COCO format -&gt; YOLO format</li>
+<li>To access data, visit Solafune compeition webpage <a href="https://solafune.com/competitions/26ff758c-7422-4cd1-bfe0-daecfc40db70?menu=data&amp;tab=&amp;modal=%22%22">Tree Canopy Detection</a></li>
 </ul>
 </li>
+</ul>
+<h3 id="files--run-order">Files &amp; Run Order </h3>
+<h4 id="data-preparation">Data Preparation </h4>
+<ul>
+<li>Notebook:
+<ul>
+<li><a href="notebooks/01_data_preparation.ipynb">'notebooks/01_data_preparation.ipynb'</a>
+<ul>
+<li>JSON conversion</li>
+<li>Solafune format -&gt; COCO format</li>
+<li>COCO format -&gt; YOLO format</li>
 <li>Unpacking Raw Data
 <ul>
 <li>Extract ZIP files
@@ -168,83 +156,44 @@ pip <span class="token function">install</span> <span class="token parameter var
 <li>Data Split Images &amp; Annotations
 <ul>
 <li>Training</li>
-<li>Testing</li>
 <li>Validation</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<p>02_train_model.py</p>
-<ul>
-<li>Modify train model parameters YAML file for desired training and naming
-<ul>
-<li>Train Model Parameters</li>
-</ul>
-</li>
-<li>Select YOLO Model Version
-<ul>
-<li><a href="scripts/02_train_model.py">scripts/02_train_model.py</a> — Line 21
-<ul>
-<li>Where to select pretrained model for training</li>
 </ul>
 </li>
 </ul>
-</li>
+<h4 id="model-training">Model Training </h4>
+<ul>
+<li>You can train on a <strong>Local Device</strong> or on <strong>Google Colab (GPU)</strong>.
+<ul>
+<li><strong>Local Device</strong>
+<ul>
+<li>Script:
+<ul>
+<li><a href="scripts/02_train_model.py"><code>scripts/02_train_model.py</code></a></li>
 </ul>
 </li>
-<li>
-<p>03_test_model.py</p>
+<li>Configure hyperparameters
 <ul>
-<li>Modify test model parameters YAML file for fine tuning model
-<ul>
-<li>Test Model Parameters</li>
+<li><a href="configurations/train_model_overrides.yaml"><code>configurations/train_model_overrides.yaml</code></a></li>
 </ul>
 </li>
-<li>Select Models Weights for Validation
-<ul>
-<li><a href="scripts/03_test_model.py">scripts/03_test_model.py</a> — Line 23
-<ul>
-<li>Where to select trained model weights for evaluation</li>
+<li>Choose the pretrained YOLO weights near the top of the script (line ~21):<pre data-role="codeBlock" data-info="python" class="language-python python"><code>model <span class="token operator">=</span> YOLO<span class="token punctuation">(</span><span class="token string">'yolo11s-seg.pt'</span><span class="token punctuation">)</span>  <span class="token comment"># options: yolo11n-seg.pt, yolo11s-seg.pt, yolo11x-seg.pt, yolov8s-seg.pt</span>
+</code></pre></li>
 </ul>
 </li>
+<li><strong>Google Colab</strong>
+<ul>
+<li>Notebook:
+<ul>
+<li>notebooks/02_train_model_colab.ipynb'
+<ul>
+<li><a href="https://colab.research.google.com/github/Mitch-P-Analyst/solafune_tree_canopy/blob/main/notebooks/02_train_model_colab.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt=" Open in Colab ▶ "></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li>
-<p>04_test_model_evaluations.ipynb | <strong>Optional</strong></p>
-<ul>
-<li>Optional Unfinished Notebook file. Containing indepth measures to analyse test split data validation.</li>
-</ul>
-</li>
-<li>
-<p>05_predict_model.py</p>
-<ul>
-<li>Modify predict model parameters YAML file for final model predictions
-<ul>
-<li>Predict Model Parameter</li>
-</ul>
-</li>
-<li>Select Models Weights for Prediction
-<ul>
-<li><a href="scripts/05_predict_model.py">scripts/05_predict_model.py</a> — Line 23
-<ul>
-<li>Where to select trained/validated model weights for prediction</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>06_export_submission.py</p>
-<ul>
-<li>Select Predict Models Annotations for Submission Jile
-<ul>
-<li><a href="scripts/06_export_submission.py">scripts/06_export_submission.py</a> - Line 16
-<ul>
-<li>Where to select predicted model outputs to define prediction labels.txt for submission</li>
+<li>Use Colab’s GPU and follow the <strong>in-notebook</strong> instructions to mount Drive, set paths, train model and export model weights.</li>
 </ul>
 </li>
 </ul>
@@ -252,43 +201,67 @@ pip <span class="token function">install</span> <span class="token parameter var
 </ul>
 </li>
 </ul>
+<h4 id="model-validation">Model Validation </h4>
+<ul>
+<li>Script:
+<ul>
+<li><a href="scripts/03_val_mode.py">'scripts/03_val_model.py'</a></li>
+</ul>
+</li>
+<li>Configure hyperparameters &amp; trained model weights
+<ul>
+<li><a href="configurations/train_model_overrides.yaml">'configurations/val_model_overrides.yaml'</a>
+<ul>
+<li>Select Model Weights from trained YOLO model<pre data-role="codeBlock" data-info="python" class="language-python python"><code>weights<span class="token punctuation">:</span> <span class="token string">'runs/segment/train_Yolo11s_canopy_832_adamW__20251101-0151/weights/best.pt'</span>  <span class="token comment"># example</span>
+</code></pre></li>
+<li>Modify validation model parameters YAML file for fine tuning model</li>
+</ul>
 </li>
 </ul>
-<h2 id="optional-google-colab"><strong>Optional</strong> Google Colab </h2>
-<p>Relative pathways and constructed Google Colab .ipynb file to utilise Google Colab GPUs.</p>
-<p>To take advantage of Googel Colab's free or paid GPU, follow the below Google Drive Directory Structure and Google Colab Juptyer Notebook file.</p>
-<h3 id="required-google-drive-directory-structure">Required Google Drive Directory Structure </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>├── drive/                              # Drive Base
-│   ├── MyDrive/                        # Google Drive
-│   │   ├── Datasets/                   # Host of all Datasets
-│   │   │  ├── solafune-tree-canopy/                   
-│   │   │   │   ├── data/               # Data Folder Structure 
-│   │   │   │   │   ├── processed/
-│   │   │   │   │   │   ├── labels/
-│   │   │   │   │   │   │   ├── train/
-│   │   │   │   │   │   │   ├── test/
-│   │   │   │   │   │   │   └── val/
-│   │   │   │   │   │   └── images/
-│   │   │   │   │   │       ├── train/
-│   │   │   │   │   │       ├── test/
-│   │   │   │   │   │       └── val/
-│   │   │   │   │   │
-│   │   │   │   │   ├── temp/
-│   │   │   │   │   └──  raw/
-│   │   │   │   │      ├── zips/
-│   │   │   │   │      └── JSONs/
-│   │   │   │   │
-│   │   │   │   ├── runs/
-│   │   │   │   │   ├── segments/      # All model training/validation/prediction results
-│   │   │   │   │   └── notebooks/
-│   │   │   │   │
-│   │   │   │   └──   outputs/
-│   │   │   │       └── exports/
-</code></pre><h3 id="files-1">Files </h3>
+</li>
+</ul>
+<h4 id="metric-testings-optional">Metric Testings (Optional) </h4>
 <ul>
-<li>Run Notebook
+<li>Notebook:
 <ul>
-<li><a href="https://colab.research.google.com/drive/1KrtNSr8aHL5j8dGBrMzNdlHEesKB712Z?usp=drive_link">solafune_tree_canopy.ipynb</a></li>
+<li><a href="notebooks/04_test_model_evaluations.ipynb">'notebooks/04_test_model_evaluations'</a>
+<ul>
+<li>Optional Unfinished Notebook file. Containing indepth measures to analyse split data validation.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="predictions">Predictions </h4>
+<ul>
+<li>Script:
+<ul>
+<li><a href="scripts/05_predict_model.py">'scripts/05_predict_model.py'</a></li>
+</ul>
+</li>
+<li>Configure hyperparameters &amp; trained model weights
+<ul>
+<li><a href="configurations/predict_model_overrides.yaml">'configurations/predict_model_overrides.yaml'</a>
+<ul>
+<li>Select Model Weights from trained YOLO model<pre data-role="codeBlock" data-info="python" class="language-python python"><code>weights<span class="token punctuation">:</span> <span class="token string">'runs/segment/train_Yolo11s_canopy_832_adamW__20251101-0151/weights/best.pt'</span>  <span class="token comment"># example</span>
+</code></pre></li>
+<li>Modify prediction model parameters YAML file for final model deployment</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="export">Export </h4>
+<ul>
+<li>Script:
+<ul>
+<li><a href="scripts/06_export_submission.py">'scripts/06_export_submission.py'</a>
+<ul>
+<li>Select Prediction Annotations on <strong>Line 16</strong> from <code>/runs/segement/</code> folder for Submission Jile<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># Prediction Annotations</span>
+labels <span class="token operator">=</span> REPO_ROOT <span class="token operator">/</span> <span class="token string">"runs/segment/pred_train_Yolo11s_canopy_832_adamW__20251101-0151_2025-11-01 10:33"</span> <span class="token operator">/</span> <span class="token string">"labels"</span> <span class="token comment"># example</span>
+</code></pre></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

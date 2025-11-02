@@ -113,12 +113,12 @@ pip install -r requirements.txt
 
 
 #### Model Training
-- You can train on a **local Device** or on **Google Colab (GPU)**.
+- You can train on a **Local Device** or on **Google Colab (GPU)**.
    - **Local Device**
        - Script:
            - [`scripts/02_train_model.py`](scripts/02_train_model.py) 
        - Configure hyperparameters
-           - [`configurations/train_model_overrides.yaml`](configurations/train_model_overrides.yaml).
+           - [`configurations/train_model_overrides.yaml`](configurations/train_model_overrides.yaml)
        - Choose the pretrained YOLO weights near the top of the script (line ~21):
            ```python
            model = YOLO('yolo11s-seg.pt')  # options: yolo11n-seg.pt, yolo11s-seg.pt, yolo11x-seg.pt, yolov8s-seg.pt
@@ -171,8 +171,6 @@ pip install -r requirements.txt
            ``` python
            # Prediction Annotations
            labels = REPO_ROOT / "runs/segment/pred_train_Yolo11s_canopy_832_adamW__20251101-0151_2025-11-01 10:33" / "labels" # example
-
-
            ```
 
 
