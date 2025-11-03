@@ -13,7 +13,7 @@ ipykernel>=6.17.1
 jupyterlab>=4.1
 scikit-learn>=1.4
 pillow>=10.3
-torch>=2.8.0
+-f https://download.pytorch.org/whl/torch_stable.html
 # torch/torchvision: let Colab pick; install explicitly only if needed:
 # torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 

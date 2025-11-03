@@ -5,8 +5,7 @@ data: 'configurations/model_data-seg.yaml' # Data Source
 split: 'val'              # data is specific to 'val' folder
 
 # Training Model Weights (relative to repo root)
-#weights: 'notebooks/runs/segment/train_Yolo11s_canopy_832_adamW_/weights/best.pt' 
-weights: 'notebooks/runs/segment/train_Yolo11m_canopy_adamW_/weights/best.pt' 
+weights: 'runs/segment/train_Yolo11s_canopy_832_adamW__20251101-0151/weights/best.pt' 
     # Weights from Train Model / Modify where necessary
 
 
@@ -34,5 +33,5 @@ agnostic_nms: False       # Dont merge across classes
 
 visualize: False          # Visualizes the ground truths, true positives, false positives and false negatives for each image
 verbose: True
-name: 'val_Yolo11m_canopy_adamW_'
+name: 'val_Yolo11s_canopy_832_adamW_'
 project: runs/segment     # Output destination
