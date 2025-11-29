@@ -11,3 +11,5 @@ runs/segment/*
 !requirements.txt
 !yolo11s-seg.pt
 !yolov8s-seg.pt
+.virtual_documents/*
+.ipynb_checkpoints/*
