@@ -6,7 +6,7 @@ source: 'data/processed/images/predict' # Data Source from REPO_ROOT
 
 # Training Model Weights (relative to repo root)
 #weights: 'notebooks/runs/segment/train_Yolo11s_canopy_832_adamW_/weights/best.pt' 
-weights: 'notebooks/runs/segment/train_Yolo11m_canopy_adamW_/weights/best.pt' 
+weights: 'best_model_eval/best_model_eval_20251207_204126/best_fold_weights.pt' 
     # Weights from Train Model / Modify where necessary
 
 

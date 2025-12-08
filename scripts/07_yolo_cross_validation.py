@@ -14,13 +14,17 @@ from sklearn.model_selection import KFold
 from ultralytics import YOLO
 import torch
 
+# Training Parameters
+EPOCHS = 25
+BATCH_SIZE = 8 # Reduce this value if you encounter CUDA out of memory errors
+
 # Define paths
 ROOT_DIR = Path('./') # Running from the root of the project
 DATA_DIR = ROOT_DIR / 'data' / 'processed'
-CV_DATA_DIR = ROOT_DIR / 'cv_data_yolo11m' # New directory for this CV
+CV_DATA_DIR = ROOT_DIR / 'cv_data_yolov8s' # New directory for this CV
 MODEL_CONFIG_PATH = ROOT_DIR / 'configurations' / 'model_data-seg.yaml'
 # Using the best.pt from the user's previous yolo11m training run
-PRETRAINED_MODEL_PATH = ROOT_DIR / 'notebooks' / 'runs' / 'segment' / 'train_Yolo11m_canopy_adamW_' / 'weights' / 'best.pt'
+PRETRAINED_MODEL_PATH = ROOT_DIR / 'yolov8s-seg.pt'
 
 
 # ## 2. Data Preparation for Cross-Validation
@@ -104,9 +108,10 @@ for i in range(5):
     # Train the model
     model.train(
         data=str(fold_yaml_path.resolve()),
-        epochs=25, # Using a smaller number of epochs for demonstration
+        epochs=EPOCHS, 
+        batch=BATCH_SIZE, # Added batch size
         imgsz=640,
-        project='YOLOv11m_CV',
+        project='YOLOv8s_CV',
         name=f'fold_{i}',
         exist_ok=True # Allows re-running the script
     )
@@ -120,7 +125,7 @@ print("--- Cross-Validation Training Complete ---")
 # ## 4. Results Aggregation
 # Combine the results from all folds and calculate the mean and standard deviation of the key metrics.
 print("\n--- Aggregating Results ---")
-results_dir = ROOT_DIR / 'YOLOv11m_CV'
+results_dir = ROOT_DIR / 'YOLOv8s_CV'
 all_results = []
 
 for i in range(5):

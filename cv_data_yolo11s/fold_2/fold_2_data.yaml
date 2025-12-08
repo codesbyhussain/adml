@@ -1,0 +1,16 @@
+augmentation:
+  copy_paste: 0.3
+  fliplr: 0.5
+  flipud: 0.0
+  hsv_h: 0.015
+  hsv_s: 0.7
+  hsv_v: 0.4
+  mixup: 0.2
+  mosaic: 1.0
+  perspective: 0.01
+names:
+  0: individual_tree
+  1: group_of_trees
+path: C:\Users\hmanasi1\Documents\ADML\solafune_tree_canopy\cv_data_yolo11s\fold_2
+train: C:\Users\hmanasi1\Documents\ADML\solafune_tree_canopy\cv_data_yolo11s\fold_2\images\train
+val: C:\Users\hmanasi1\Documents\ADML\solafune_tree_canopy\cv_data_yolo11s\fold_2\images\val
